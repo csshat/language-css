@@ -1,0 +1,24 @@
+{
+  "name": "csshat-language-css",
+  "version": "1.0.0",
+  "description": "CSS language",
+  "main": "dust.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/csshat/css"
+  },
+  "bugs": {
+    "url": "https://github.com/csshat/css/issues"
+  },
+  "author": "Tomas Hanacek <tomashanacek@abdoc.net> (https://github.com/tomashanacek)",
+  "contributors": [
+    "Marek Hrabe <marekhrabe@abdoc.net> (https://github.com/marekhrabe)"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "octopus-helpers": "0.1.0"
+  },
+  "bundledDependencies": [
+    "octopus-helpers"
+  ]
+}

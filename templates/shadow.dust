@@ -1,0 +1,4 @@
+{prefix}{kind}-shadow:{~s}
+{#shadows}
+    {?inset}inset {/inset}{x|px} {y|px} {blur|px}{@if cond="{choke} != 0"} {choke|px}{/if} {@color}{color}{/color}{@sep}, {/sep}
+{/shadows};{~n}

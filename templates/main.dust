@@ -1,0 +1,62 @@
+{?opacity}opacity: {opacity};{~n}{/opacity}
+{#textStyles}
+    color: {@color}{color}{/color};{~n}
+    {@font font=font}
+        font-family: "{name}";{~n}
+        font-size: {size|px};{~n}
+        {?weight}font-weight: {weight};{~n}{/weight}
+        {?style}font-style: {style};{~n}{/style}
+    {/font}
+    {@sep}{~n}{/sep}
+{:else}
+
+{#bounds}
+    width: {width|px};{~n}
+    height: {height|px};{~n}
+{/bounds}
+
+{/textStyles}
+
+{#background}
+    {?color}
+        background-color: {@color}{color}{/color};{~n}
+    {/color}
+    {?background.gradient}
+        {?options.vendorPrefixes}
+            {>gradient gradient=gradient prefix="-moz-" /}
+            {>gradient gradient=gradient prefix="-o-" /}
+            {>gradient gradient=gradient prefix="-webkit-" /}
+        {/options.vendorPrefixes}
+        {>gradient gradient=gradient prefix="" /}
+    {/background.gradient}
+{/background}
+
+{#border}
+    border: {width|px} {style} {@color}{color}{/color};{~n}
+{/border}
+
+{#radius}
+    {?options.vendorPrefixes}
+        {>radius radius=radius prefix="-moz-" /}
+        {>radius radius=radius prefix="-webkit-" /}
+    {/options.vendorPrefixes}
+    {>radius radius=radius prefix="" /}
+{/radius}
+
+{?textStyles}
+    {?shadows}
+        {?options.vendorPrefixes}
+            {>shadow kind="text" shadows=shadows prefix="-moz-" /}
+            {>shadow kind="text" shadows=shadows prefix="-webkit-" /}
+        {/options.vendorPrefixes}
+        {>shadow kind="text" shadows=shadows prefix="" /}
+    {/shadows}
+{:else}
+    {?shadows}
+        {?options.vendorPrefixes}
+            {>shadow kind="box" shadows=shadows prefix="-moz-" /}
+            {>shadow kind="box" shadows=shadows prefix="-webkit-" /}
+        {/options.vendorPrefixes}
+        {>shadow kind="box" shadows=shadows prefix="" /}
+    {/shadows}
+{/textStyles}
