@@ -5,10 +5,10 @@
   "main": "dust.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/csshat/css"
+    "url": "https://github.com/csshat/language-css"
   },
   "bugs": {
-    "url": "https://github.com/csshat/css/issues"
+    "url": "https://github.com/csshat/language-css/issues"
   },
   "author": "Tomas Hanacek <tomashanacek@abdoc.net> (https://github.com/tomashanacek)",
   "contributors": [
