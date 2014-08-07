@@ -1,62 +1,84 @@
-{?opacity}opacity: {opacity};{~n}{/opacity}
+{?options.selector}
+      {@if cond="'{options.inheritFontStyles}'.length || '{textStyles}'.length && '{textStyles.length}' < 2"}
+        {@selector style=options.selectorTextStyle type=options.selectorType}{name}{/selector} {~lb}{~n}
+      {/if}
+{/options.selector}
+
+{?opacity}{?options.selector}    {/options.selector}opacity: {opacity};{~n}{/opacity}
+
+{?options.inheritFontStyles}
+  {#baseTextStyle}
+    {>textStyle selector=options.selector /}{^options.selector}{~n}{/options.selector}
+  {/baseTextStyle}
+{/options.inheritFontStyles}
+
 {#textStyles}
-    color: {@color}{color}{/color};{~n}
-    {@font font=font}
-        font-family: "{name}";{~n}
-        font-size: {size|px};{~n}
-        {?weight}font-weight: {weight};{~n}{/weight}
-        {?style}font-style: {style};{~n}{/style}
-    {/font}
-    {@sep}{~n}{/sep}
+    {?options.selector}
+      {@if cond="{textStyles.length} > 1"}
+        {! close main selector !}
+        {?options.inheritFontStyles}
+          {~rb}{~n}
+        {/options.inheritFontStyles}
+        {! open the new one !}
+        {@selector style=options.selectorTextStyle type=options.selectorType ranges=textStyles index=$idx}{text}{/selector} {~lb}{~n}
+      {/if}
+    {/options.selector}
+
+    {^options.inheritFontStyles}
+      {#baseTextStyle}
+        {>textStyle:baseTextStyle selector=options.selector /}
+      {/baseTextStyle}
+    {/options.inheritFontStyles}
+
+    {>textStyle selector=options.selector /}
+    {^options.inheritFontStyles}{~rb}{~n}{/options.inheritFontStyles}
+    {^options.selector}{@sep}{~n}{/sep}{/options.selector}
 {:else}
 
 {#bounds}
-    width: {width|px};{~n}
-    height: {height|px};{~n}
+    {?options.selector}    {/options.selector}width: {width|px};{~n}
+    {?options.selector}    {/options.selector}height: {height|px};{~n}
 {/bounds}
 
 {/textStyles}
 
 {#background}
     {?color}
-        background-color: {@color}{color}{/color};{~n}
+        {?options.selector}    {/options.selector}background-color: {@color type=options.colorType}{color}{/color};{~n}
     {/color}
     {?background.gradient}
         {?options.vendorPrefixes}
-            {>gradient gradient=gradient prefix="-moz-" /}
-            {>gradient gradient=gradient prefix="-o-" /}
-            {>gradient gradient=gradient prefix="-webkit-" /}
+            {?options.selector}    {/options.selector}{>gradient gradient=gradient prefix="-moz-" /}
+            {?options.selector}    {/options.selector}{>gradient gradient=gradient prefix="-o-" /}
+            {?options.selector}    {/options.selector}{>gradient gradient=gradient prefix="-webkit-" /}
         {/options.vendorPrefixes}
-        {>gradient gradient=gradient prefix="" /}
+        {?options.selector}    {/options.selector}{>gradient gradient=gradient prefix="" /}
     {/background.gradient}
 {/background}
 
 {#border}
-    border: {width|px} {style} {@color}{color}{/color};{~n}
+    {?options.selector}    {/options.selector}border: {width|px} {style} {@color type=options.colorType}{color}{/color};{~n}
 {/border}
 
 {#radius}
     {?options.vendorPrefixes}
-        {>radius radius=radius prefix="-moz-" /}
-        {>radius radius=radius prefix="-webkit-" /}
+        {?options.selector}    {/options.selector}{>radius radius=radius prefix="-moz-" /}
+        {?options.selector}    {/options.selector}{>radius radius=radius prefix="-webkit-" /}
     {/options.vendorPrefixes}
-    {>radius radius=radius prefix="" /}
+    {?options.selector}    {/options.selector}{>radius radius=radius prefix="" /}
 {/radius}
 
 {?textStyles}
     {?shadows}
-        {?options.vendorPrefixes}
-            {>shadow kind="text" shadows=shadows prefix="-moz-" /}
-            {>shadow kind="text" shadows=shadows prefix="-webkit-" /}
-        {/options.vendorPrefixes}
-        {>shadow kind="text" shadows=shadows prefix="" /}
+        {?options.selector}    {/options.selector}{>shadow kind="text" shadows=shadows prefix="" /}
     {/shadows}
 {:else}
     {?shadows}
         {?options.vendorPrefixes}
-            {>shadow kind="box" shadows=shadows prefix="-moz-" /}
-            {>shadow kind="box" shadows=shadows prefix="-webkit-" /}
+            {?options.selector}    {/options.selector}{>shadow kind="box" shadows=shadows prefix="-moz-" /}
+            {?options.selector}    {/options.selector}{>shadow kind="box" shadows=shadows prefix="-webkit-" /}
         {/options.vendorPrefixes}
-        {>shadow kind="box" shadows=shadows prefix="" /}
+        {?options.selector}    {/options.selector}{>shadow kind="box" shadows=shadows prefix="" /}
     {/shadows}
 {/textStyles}
+{?options.selector}{?options.inheritFontStyles}{~rb}{/options.inheritFontStyles}{/options.selector}

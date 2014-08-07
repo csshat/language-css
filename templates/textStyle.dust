@@ -1,0 +1,19 @@
+{?color}{?selector}    {/selector}color: {@color type=options.colorType}{color}{/color};{~n}{/color}
+{?font}
+  {@font font=font}
+      {?font.name}{?selector}    {/selector}font-family: "{font.name}";{~n}{/font.name}
+      {?font.size}{?selector}    {/selector}font-size: {font.size|px};{~n}{/font.size}
+      {?font.weight}{?selector}    {/selector}font-weight: {font.weight};{~n}{/font.weight}
+      {?font.style}{?selector}    {/selector}font-style: {font.style};{~n}{/font.style}
+
+      {@if cond="'{font.underline}' || '{font.linethrough}'"}
+          {?selector}    {/selector}text-decoration:{~s}
+          {?font.underline}underline{/font.underline}
+          {?font.linethrough}{?font.underline} {/font.underline}line-through{/font.linethrough}
+          ;{~n}
+      {/if}
+
+      {?font.uppercase}{?selector}    {/selector}text-transform: uppercase;{~n}{/font.uppercase}
+      {?font.smallcaps}{?selector}    {/selector}font-variant: small-caps;{~n}{/font.smallcaps}
+  {/font}
+{/font}
