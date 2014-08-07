@@ -16,7 +16,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "octopus-helpers": "0.1.0"
+    "octopus-helpers": "^0.2.3"
   },
   "bundledDependencies": [
     "octopus-helpers"
