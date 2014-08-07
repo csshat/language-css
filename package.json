@@ -13,7 +13,8 @@
   },
   "author": "Tomas Hanacek <tomashanacek@abdoc.net> (https://github.com/tomashanacek)",
   "contributors": [
-    "Marek Hrabe <marekhrabe@abdoc.net> (https://github.com/marekhrabe)"
+    "Marek Hrabe <marekhrabe@abdoc.net> (https://github.com/marekhrabe)",
+    "Petr Brzek <petrbrzek@abdoc.net> (https://github.com/petrbrzek)"
   ],
   "license": "MIT",
   "dependencies": {
