@@ -1,7 +1,7 @@
 {
   "name": "csshat-language-css",
   "title": "CSS",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "CSS language",
   "main": "dust.js",
   "repository": {
@@ -33,20 +33,32 @@
       "default": true
     },
     "selectorTextStyle": {
-     "type": "boolean",
-     "options": ["Dash case", "Snake case", "Camel case"],
-     "default": "Dash case"
-   },
-   "selectorType": {
-     "type": "select",
-     "options": ["id", "class", "element"],
-     "default": "class"
-   },
-   "colorType": {
-     "type": "select",
-     "options": ["hex", "rgb", "hsl"],
-     "default": "hex"
-   }
+      "type": "boolean",
+      "options": [
+        "Dash case",
+        "Snake case",
+        "Camel case"
+      ],
+      "default": "Dash case"
+    },
+    "selectorType": {
+      "type": "select",
+      "options": [
+        "id",
+        "class",
+        "element"
+      ],
+      "default": "class"
+    },
+    "colorType": {
+      "type": "select",
+      "options": [
+        "hex",
+        "rgb",
+        "hsl"
+      ],
+      "default": "hex"
+    }
   },
   "bundledDependencies": [
     "octopus-helpers"
