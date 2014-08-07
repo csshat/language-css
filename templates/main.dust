@@ -1,14 +1,34 @@
+{?options.showTextSnippet}
+    {@if cond="'{textStyles}'.length && '{textStyles.length}' < 2"}
+      {@textSnippet ranges=""}{name}{/textSnippet}{~n}
+    {:else}
+      {?textStyles}{?options.inheritFontStyles}{`/* Base style */`}{~n}{/options.inheritFontStyles}{/textStyles}
+      {^textStyles}{`/* Style for`} {name} {`*/`}{~n}{/textStyles}
+    {/if}
+{/options.showTextSnippet}
 {?options.selector}
-      {@if cond="'{options.inheritFontStyles}'.length || '{textStyles}'.length && '{textStyles.length}' < 2"}
-        {@selector style=options.selectorTextStyle type=options.selectorType}{name}{/selector} {~lb}{~n}
+      {@if cond="'{options.inheritFontStyles}'.length && '{textStyles}'.length && '{textStyles.length}' > 1"}
+        {@selector style=options.selectorTextStyle type=options.selectorType ranges="" isText="1"}{name}{/selector} {~lb}{~n}
       {/if}
+      {@if cond="'{textStyles}'.length && '{textStyles.length}' < 2"}
+        {@selector style=options.selectorTextStyle type=options.selectorType ranges="" isText="1"}{name}{/selector} {~lb}{~n}
+      {/if}
+      {^textStyles}
+        {@selector style=options.selectorTextStyle type=options.selectorType ranges="" isText="0"}{name}{/selector} {~lb}{~n}
+      {/textStyles}
 {/options.selector}
 
 {?opacity}{?options.selector}    {/options.selector}opacity: {opacity};{~n}{/opacity}
 
 {?options.inheritFontStyles}
   {#baseTextStyle}
-    {>textStyle selector=options.selector /}{^options.selector}{~n}{/options.selector}
+    {>textStyle selector=options.selector /}
+    {?textStyles}
+      {?shadows}
+          {?options.selector}    {/options.selector}{>shadow kind="text" shadows=shadows prefix="" /}
+      {/shadows}
+      {^options.selector}{~n}{/options.selector}
+    {/textStyles}
   {/baseTextStyle}
 {/options.inheritFontStyles}
 
@@ -20,13 +40,29 @@
           {~rb}{~n}
         {/options.inheritFontStyles}
         {! open the new one !}
-        {@selector style=options.selectorTextStyle type=options.selectorType ranges=textStyles index=$idx}{text}{/selector} {~lb}{~n}
+        {?options.showTextSnippet}
+          {@if cond="{textStyles.length} > 1"}
+            {@textSnippet ranges=textStyles index=$idx}{text}{/textSnippet}{~n}
+          {/if}
+        {/options.showTextSnippet}
+        {@selector style=options.selectorTextStyle type=options.selectorType ranges=textStyles index=$idx isText="1"}{text}{/selector} {~lb}{~n}
       {/if}
+    {/options.selector}
+
+    {^options.selector}
+      {?options.showTextSnippet}
+        {@if cond="{textStyles.length} > 1"}
+          {@textSnippet ranges=textStyles index=$idx}{text}{/textSnippet}{~n}
+        {/if}
+      {/options.showTextSnippet}
     {/options.selector}
 
     {^options.inheritFontStyles}
       {#baseTextStyle}
         {>textStyle:baseTextStyle selector=options.selector /}
+        {?shadows}
+            {?options.selector}    {/options.selector}{>shadow kind="text" shadows=shadows prefix="" /}
+        {/shadows}
       {/baseTextStyle}
     {/options.inheritFontStyles}
 
@@ -68,11 +104,7 @@
     {?options.selector}    {/options.selector}{>radius radius=radius prefix="" /}
 {/radius}
 
-{?textStyles}
-    {?shadows}
-        {?options.selector}    {/options.selector}{>shadow kind="text" shadows=shadows prefix="" /}
-    {/shadows}
-{:else}
+{^textStyles}
     {?shadows}
         {?options.vendorPrefixes}
             {?options.selector}    {/options.selector}{>shadow kind="box" shadows=shadows prefix="-moz-" /}
@@ -81,4 +113,7 @@
         {?options.selector}    {/options.selector}{>shadow kind="box" shadows=shadows prefix="" /}
     {/shadows}
 {/textStyles}
-{?options.selector}{?options.inheritFontStyles}{~rb}{/options.inheritFontStyles}{/options.selector}
+{?options.selector}
+  {^textStyles}{~rb}{/textStyles}
+  {?options.inheritFontStyles}{?textStyles}{~rb}{/textStyles}{/options.inheritFontStyles}
+{/options.selector}
