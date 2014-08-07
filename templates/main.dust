@@ -31,7 +31,7 @@
     {/options.inheritFontStyles}
 
     {>textStyle selector=options.selector /}
-    {^options.inheritFontStyles}{~rb}{~n}{/options.inheritFontStyles}
+    {?options.selector}{^options.inheritFontStyles}{~rb}{~n}{/options.inheritFontStyles}{/options.selector}
     {^options.selector}{@sep}{~n}{/sep}{/options.selector}
 {:else}
 

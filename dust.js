@@ -36,7 +36,12 @@ var helpers = {
     },
     selector: function(chunk, ctx, bodies, params) {
         var data = ctx.get('name');
-        var style = params.style || 'dash';
+        var dictionary = {
+          "Dash-case" : "dash",
+          "CamelCase": "camel",
+          "Snake_case": "snake"
+        };
+        var style = dictionary[params.style] || 'dash';
         var type = '.';
         if (params.type === 'id') {
           type = '#';

@@ -19,6 +19,35 @@
   "dependencies": {
     "octopus-helpers": "^0.2.3"
   },
+  "settings": {
+    "vendorPrefixes": {
+      "type": "boolean",
+      "default": true
+    },
+    "inheritFontStyles": {
+      "type": "boolean",
+      "default": true
+    },
+    "selector": {
+      "type": "boolean",
+      "default": true
+    },
+    "selectorTextStyle": {
+     "type": "boolean",
+     "options": ["Dash case", "Snake case", "Camel case"],
+     "default": "Dash case"
+   },
+   "selectorType": {
+     "type": "select",
+     "options": ["id", "class", "element"],
+     "default": "class"
+   },
+   "colorType": {
+     "type": "select",
+     "options": ["hex", "rgb", "hsl"],
+     "default": "hex"
+   }
+  },
   "bundledDependencies": [
     "octopus-helpers"
   ]
