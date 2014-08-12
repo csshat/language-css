@@ -2,9 +2,13 @@
 
 [![Install in CSS Hat](http://img.shields.io/badge/install-to%20CSS%20Hat-blue.svg)](http://addons.csshat.com/?install=csshat/language-css)
 
-This is a template for [CSS Hat 2](https://csshat.com/) that generates CSS
+This is a template for [CSS Hat 2](https://csshat.com/) that generates CSS. This is the only template that ships with CSS Hat and is used for generating preview.
 
 ## Settings
+
+### Vendor Prefixes
+
+With this option on, some values will be prefixed to work in various browser. TODO: document when
 
 ### Inherit Font Styles
 
