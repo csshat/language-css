@@ -40,9 +40,9 @@ var helpers = {
         var prefix = '';
         var range = null;
         var dictionary = {
-          "Dash-case" : "dash",
-          "CamelCase": "camel",
-          "Snake_case": "snake"
+          "dash-case" : "dash",
+          "camelCase": "camel",
+          "snake_case": "snake"
         };
         var style = dictionary[params.style] || 'dash';
         var type = '.';

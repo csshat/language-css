@@ -35,13 +35,13 @@
       "default": false
     },
     "selectorTextStyle": {
-      "type": "select",
+      "type": "hidden",
       "options": [
-        "Dash case",
-        "Snake case",
-        "Camel case"
+        "dash-case",
+        "camelCase",
+        "snake_case"
       ],
-      "default": "Dash case"
+      "default": "dash-case"
     },
     "selectorType": {
       "type": "select",
