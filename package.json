@@ -4,6 +4,11 @@
   "version": "1.2.2",
   "description": "CSS language",
   "main": "dust.js",
+  "scope": "source.css",
+  "engines": {
+    "csshat": "~2.0.0",
+    "avocode": "*"
+  },
   "homepage": "https://github.com/csshat/language-css",
   "repository": {
     "type": "git",
