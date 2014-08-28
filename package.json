@@ -1,7 +1,7 @@
 {
   "name": "csshat-language-css",
   "title": "CSS",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "CSS language",
   "main": "dust.js",
   "scope": "source.css",
