@@ -1,7 +1,7 @@
 {
-  "name": "csshat-language-css-new",
+  "name": "csshat-language-css",
   "title": "CSS new",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "CSS language",
   "scope": "source.css",
   "codeLanguage": true,
@@ -9,15 +9,15 @@
     "atom": "*"
   },
   "main": "main.coffee",
-  "homepage": "https://github.com/csshat/language-canvas",
+  "homepage": "https://github.com/csshat/language-css",
   "repository": {
     "type": "git",
-    "url": "https://github.com/csshat/language-canvas"
+    "url": "https://github.com/csshat/language-css"
   },
   "bugs": {
-    "url": "https://github.com/csshat/language-canvas/issues"
+    "url": "https://github.com/csshat/language-css/issues"
   },
-  "author": "Tomas Hanacek <tomashanacek@abdoc.net> (https://github.com/tomashanacek)",
+  "author": "Petr Brzek <petrbrzek@abdoc.net> (https://github.com/petrbrzek)",
   "contributors": [
   ],
   "license": "MIT",
