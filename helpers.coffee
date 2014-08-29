@@ -3,6 +3,7 @@ utils = require('octopus-helpers').utils
 
 # Helpers
 px = css.px
+color = css.color
 
 trimName = (value) ->
   value = value.trim().replace(/\s{2,}/, ' ')
@@ -36,5 +37,6 @@ selector = ({options, name, type, id}) ->
 
 # Exports
 exports.px = px
+exports.color = color
 exports.trimName = trimName
 exports.selector = selector
