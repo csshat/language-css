@@ -1,0 +1,72 @@
+{
+  "name": "csshat-language-css-new",
+  "title": "CSS new",
+  "version": "1.0.0",
+  "description": "CSS language",
+  "scope": "source.css",
+  "codeLanguage": true,
+  "engines": {
+    "atom": "*"
+  },
+  "main": "main.coffee",
+  "homepage": "https://github.com/csshat/language-canvas",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/csshat/language-canvas"
+  },
+  "bugs": {
+    "url": "https://github.com/csshat/language-canvas/issues"
+  },
+  "author": "Tomas Hanacek <tomashanacek@abdoc.net> (https://github.com/tomashanacek)",
+  "contributors": [
+  ],
+  "license": "MIT",
+  "settings": {
+    "vendorPrefixes": {
+      "type": "boolean",
+      "default": true
+    },
+    "inheritFontStyles": {
+      "type": "boolean",
+      "default": true
+    },
+    "selector": {
+      "type": "boolean",
+      "default": true
+    },
+    "selectorTextStyle": {
+      "type": "select",
+      "options": [
+        "dash-case",
+        "camelCase",
+        "snake_case"
+      ],
+      "default": "snake_case"
+    },
+    "selectorType": {
+      "type": "select",
+      "options": [
+        "id",
+        "class",
+        "element"
+      ],
+      "default": "class"
+    },
+    "colorType": {
+      "type": "select",
+      "options": [
+        "hex",
+        "rgb",
+        "hsl"
+      ],
+      "default": "hex"
+    },
+    "showTextSnippet": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "dependencies": {
+    "octopus-helpers": "^0.2.3"
+  }
+}
