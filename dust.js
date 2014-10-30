@@ -15,6 +15,7 @@ var filters = {
 };
 
 var helpers = {
+    border: css.border,
     font: function(chunk, ctx, bodies, params) {
         if (params.font.type === undefined) {
             return chunk.render(bodies.block, ctx.push(params.font));

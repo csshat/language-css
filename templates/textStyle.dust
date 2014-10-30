@@ -5,6 +5,8 @@
       {?font.size}{?selector}    {/selector}font-size: {font.size|px};{~n}{/font.size}
       {?font.weight}{?selector}    {/selector}font-weight: {font.weight};{~n}{/font.weight}
       {?font.style}{?selector}    {/selector}font-style: {font.style};{~n}{/font.style}
+      {?font.lineHeight}{?selector}    {/selector}line-height: {font.lineHeight|px};{~n}{/font.lineHeight}
+      {?font.letterSpacing}{?selector}    {/selector}letter-spacing: {font.letterSpacing|px};{~n}{/font.letterSpacing}
 
       {@if cond="'{font.underline}' || '{font.linethrough}'"}
           {?selector}    {/selector}text-decoration:{~s}

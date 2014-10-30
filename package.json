@@ -24,7 +24,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "octopus-helpers": "^0.2.3"
+    "octopus-helpers": "^0.2.9"
   },
   "settings": {
     "vendorPrefixes": {

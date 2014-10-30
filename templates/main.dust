@@ -92,9 +92,9 @@
     {/background.gradient}
 {/background}
 
-{#border}
+{@border}{#border}
     {?options.selector}    {/options.selector}border: {width|px} {style} {@color type=options.colorType}{color}{/color};{~n}
-{/border}
+{/border}{/border}
 
 {#radius}
     {?options.vendorPrefixes}
