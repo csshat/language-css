@@ -6,10 +6,10 @@ px = css.px
 color = css.color
 
 trimName = (value) ->
-  value = value.trim().replace(/\s{2,}/, ' ')
+  value = value.replace(/\s{2,}/, ' ').trim()
 
   if value.length > 14
-    value = value.slice(0, 14)
+    value = value.slice(0, 20).trim()
     value += '…'
 
   return value
@@ -29,14 +29,17 @@ selector = ({options, name, type, id}) ->
 
   name = utils.format(name, style)
 
-  name = (type.toLowerCase() + id) if not name.length
+  name = (type.toLowerCase() + id) unless name.length
 
   return prefix + name
 
+comment = (text) ->
+  "/* #{text} \"%s\" */"
 
 
 # Exports
 exports.px = px
-exports.color = color
+exports.colorFormat = color
 exports.trimName = trimName
 exports.selector = selector
+exports.comment = comment
