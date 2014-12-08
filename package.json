@@ -1,14 +1,15 @@
 {
   "name": "csshat-language-css",
-  "title": "CSS new",
+  "title": "CSS",
   "version": "2.0.0",
   "description": "CSS language",
+  "main": "main",
   "scope": "source.css",
   "codeLanguage": true,
   "engines": {
-    "atom": "*"
+    "csshat": "~2.0.0",
+    "avocode": "*"
   },
-  "main": "main.coffee",
   "homepage": "https://github.com/csshat/language-css",
   "repository": {
     "type": "git",
@@ -17,10 +18,16 @@
   "bugs": {
     "url": "https://github.com/csshat/language-css/issues"
   },
-  "author": "Petr Brzek <petrbrzek@abdoc.net> (https://github.com/petrbrzek)",
+  "author": "Tomas Hanacek <tomashanacek@abdoc.net> (https://github.com/tomashanacek)",
   "contributors": [
+    "Marek Hrabe <marekhrabe@abdoc.net> (https://github.com/marekhrabe)",
+    "Petr Brzek <petrbrzek@abdoc.net> (https://github.com/petrbrzek)"
   ],
   "license": "MIT",
+  "dependencies": {
+    "autoprefixer-core": "^4.0.2",
+    "octopus-helpers": "^1.0.0"
+  },
   "settings": {
     "vendorPrefixes": {
       "type": "boolean",
@@ -32,16 +39,16 @@
     },
     "selector": {
       "type": "boolean",
-      "default": true
+      "default": false
     },
     "selectorTextStyle": {
-      "type": "select",
+      "type": "hidden",
       "options": [
         "dash-case",
-        "camelCase",
-        "snake_case"
+        "snake_case",
+        "camelCase"
       ],
-      "default": "snake_case"
+      "default": "dash-case"
     },
     "selectorType": {
       "type": "select",
@@ -64,9 +71,34 @@
     "showTextSnippet": {
       "type": "boolean",
       "default": true
+    },
+    "showAbsolutePositions": {
+      "type": "boolean",
+      "default": false
+    },
+    "unit": {
+      "type": "hidden",
+      "options": [
+        "px",
+        "em",
+        "rem"
+      ],
+      "default": "px"
+    },
+    "useColorName": {
+      "type": "boolean",
+      "default": true
+    },
+    "quoteType": {
+      "type": "select",
+      "options": [
+        "'",
+        "\""
+      ],
+      "default": "\""
     }
   },
-  "dependencies": {
-    "octopus-helpers": "^0.2.3"
-  }
+  "bundledDependencies": [
+    "octopus-helpers"
+  ]
 }

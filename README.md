@@ -1,8 +1,8 @@
-# CSS
+# Stylus (nib)
 
-[![Install in CSS Hat](http://img.shields.io/badge/install-to%20CSS%20Hat-blue.svg)](http://addons.csshat.com/?install=csshat/language-css)
+[![Install in CSS Hat](http://img.shields.io/badge/install-to%20CSS%20Hat-blue.svg)](http://addons.csshat.com/?install=csshat/language-stylus-nib)
 
-This is a template for [CSS Hat 2](https://csshat.com/) that generates CSS. This is the only template that ships with CSS Hat and is used for generating preview.
+This is a template for [CSS Hat 2](https://csshat.com/) that generates code in [Stylus language](http://learnboost.github.io/stylus/) with [nib extensions](http://visionmedia.github.io/nib/).
 
 ## Settings
 
@@ -44,13 +44,17 @@ We try to autogenerate a selector from layer name. You can choose which type it 
 | ------ | ------- |
 | class | `.button` |
 | id | `#button` |
-| element | button`` |
+| element | `button` |
 
 ### Color Type
 
 Choose your preferred color syntax. 
 
 > Note that if you select hex, sometimes it may actually output an `rgba`, because hex has no option to express alpha.
+
+### CSS Style Syntax
+
+You can choose wheather to use minimal Stylus style (example: `font 12px Helvetica`) or more CSS-like syntax (`font: 12px Helvetica;`)
 
 ### Show Text Snippet
 

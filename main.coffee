@@ -1,53 +1,128 @@
-{px, colorFormat, trimName, selector, comment} = require('./helpers')
+# Deps
+
+autoprefixer = require('autoprefixer-core')
+{css, utils} = require 'octopus-helpers'
+{_} = utils
+
+
+# Private fns
+
+_declaration = ($, vendorPrefixes, prefixer, property, value, modifier) ->
+  return unless value?
+  value = modifier(value) if modifier
+  return prefixer(property, value) if vendorPrefixes
+  $ "#{property}: #{value};"
+
+
+_comment = ($, showTextSnippet, text) ->
+  return unless showTextSnippet
+  $ "/* #{text} */"
+
+
+defineVariable = (name, value, options) ->
+  # TODO: add :root selector when selectorOptions is enabled
+  "--#{name}: #{value};"
+
+
+renderVariable = (name) -> name
+
+
+_startSelector = ($, selector, selectorOptions, text) ->
+  return unless selector
+  $ '%s%s', utils.prettySelectors(text, selectorOptions), ' {'
+
+
+_endSelector = ($, selector) ->
+  return unless selector
+  $ '}'
+
+
+_prefixed = ($, prefixOptions, property, value) ->
+  output = "#{property}: #{value}"
+  try
+    prefixed = autoprefixer(prefixOptions).process(output)
+    children = prefixed.root.childs
+    $ "#{child.prop}: #{child.value};" for child in children
+  catch e
+    # Show error
+    console.log 'Parse error'
+
 
 class CSS
 
-  fontStyles: ({font, color}, $$) ->
-    $$ 'color: %s;', colorFormat(color, @options.colorType) if color?
-    $$ 'font-family: "%s";', font.name if font?.name?
-    $$ 'font-size: %s;', px(font.size) if font?.size?
-    $$ 'font-weight: %s;', font.weight if font?.weight?
-    $$ 'font-style: %s;', font.style if font?.style?
-    if font?.underline?
-      $$ 'text-decoration: %s;', 'underline'
-    else if font?.linethrough?
-      $$ 'text-decoration: %s;', 'line-through'
-
   render: ($) ->
     $$ = $.indents
-    baseTextComment = 'Base text style'
-    textComment = 'Text style for'
-    cssComment = 'Style for'
+    prefixed = _.partial(_prefixed, $$, {})
+    declaration = _.partial(_declaration, $$, @options.vendorPrefixes, prefixed)
+    comment = _.partial(_comment, $, @options.showTextSnippet)
+    unit = _.partial(css.unit, @options.unit)
+    convertColor = _.partial(css.convertColor, null, @options)
+    fontStyles = _.partial(css.fontStyles, declaration, convertColor, unit, @options.quoteType)
 
-    # This options add explaining comment about CSS code below
-    if @options.showTextSnippet
-      if @textStyles?
-        if @textStyles.length > 1 and @options.inheritFontStyles?
-          $ comment(baseTextStyle)
-        else
-          $ comment(textComment), trimName(@name)
-      else
-        $ comment(cssComment), trimName(@name)
+    selectorOptions =
+      separator: @options.selectorTextStyle
+      selector: @options.selectorType
+      maxWords: 3
+    startSelector = _.partial(_startSelector, $, @options.selector, selectorOptions)
+    endSelector = _.partial(_endSelector, $, @options.selector)
 
-    # This option add selector according to name of the layer
-    if @options.selector
-        $ '%s {', selector(@)
+    if @type == 'textLayer'
+      for textStyle in css.prepareTextStyles(@options.inheritFontStyles, @baseTextStyle, @textStyles)
+        comment(css.textSnippet(@text, textStyle))
 
-    $$ 'opacity: %s;', @opacity if @opacity?
+        if @options.selector
+          if textStyle.ranges
+            selectorText = utils.textFromRange(@text, textStyle.ranges[0])
+          else
+            selectorText = @name
 
-    if @bounds?
-      $$ 'width: %s;', px(@bounds.width)
-      $$ 'height: %s;', px(@bounds.height)
+          startSelector(selectorText)
 
-    if @options.inheritFontStyles and @baseTextStyle?
-      @fontStyles(@baseTextStyle, $$)
+        if not @options.inheritFontStyles or textStyle.base
+          if @options.showAbsolutePositions
+            declaration('position', 'absolute')
+            declaration('left', @bounds.left, unit)
+            declaration('top', @bounds.top, unit)
 
-    if @textStyles?
-      @fontStyles(textStyle, $$) for textStyle in @textStyles
+          declaration('opacity', @opacity)
+          if @shadows
+            declaration('text-shadow', css.convertTextShadows(convertColor, unit, @shadows))
 
-    # Close block code definition if selector option is choosen
-    if @options.selector
-        $ '}'
+        fontStyles(textStyle)
+
+        endSelector()
+        $.newline()
+    else
+      comment("Style for \"#{utils.trim(@name)}\"")
+      startSelector(@name)
+
+      if @options.showAbsolutePositions
+        declaration('position', 'absolute')
+        declaration('left', @bounds.left, unit)
+        declaration('top', @bounds.top, unit)
+
+      if @bounds
+        declaration('width', unit(@bounds.width))
+        declaration('height', unit(@bounds.width))
+
+      declaration('opacity', @opacity)
+
+      if @background
+        declaration('background-color', @background.color, convertColor)
+
+        if @background.gradient
+          declaration('background-image', css.convertGradients(convertColor, {gradient: @background.gradient, @bounds}))
+
+      if @borders
+        border = @borders[0]
+        declaration('border', "#{unit(border.width)} #{border.style} #{convertColor(border.color)}")
+
+      declaration('border-radius', @radius, css.radius)
+
+      if @shadows
+        declaration('box-shadow', css.convertShadows(convertColor, unit, @shadows))
+
+      endSelector()
 
 
-exports.renderClass = CSS
+module.exports = {defineVariable, renderVariable, renderClass: CSS}
