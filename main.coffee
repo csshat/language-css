@@ -68,29 +68,36 @@ class CSS
 
     if @type == 'textLayer'
       for textStyle in css.prepareTextStyles(@options.inheritFontStyles, @baseTextStyle, @textStyles)
-        comment(css.textSnippet(@text, textStyle))
 
-        if @options.selector
-          if textStyle.ranges
-            selectorText = utils.textFromRange(@text, textStyle.ranges[0])
-          else
-            selectorText = @name
+        unless textStyle.isEmpty
+          comment(css.textSnippet(@text, textStyle))
 
-          startSelector(selectorText)
+          if @options.selector
+            if textStyle.ranges
+              selectorText = utils.textFromRange(@text, textStyle.ranges[0])
+            else
+              selectorText = @name
 
-        if not @options.inheritFontStyles or textStyle.base
+            startSelector(selectorText)
+
+        if not @options.inheritFontStyles or textStyle.base and not textStyle.isEmpty
           if @options.showAbsolutePositions
             declaration('position', 'absolute')
             declaration('left', @bounds.left, unit)
             declaration('top', @bounds.top, unit)
 
+          if @bounds
+            declaration('width', unit(@bounds.width))
+            declaration('height', unit(@bounds.width))
+
           declaration('opacity', @opacity)
+
           if @shadows
             declaration('text-shadow', css.convertTextShadows(convertColor, unit, @shadows))
 
         fontStyles(textStyle)
 
-        endSelector()
+        endSelector() unless textStyle.isEmpty
         $.newline()
     else
       comment("Style for \"#{utils.trim(@name)}\"")
