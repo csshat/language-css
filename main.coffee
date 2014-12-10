@@ -69,18 +69,17 @@ class CSS
     if @type == 'textLayer'
       for textStyle in css.prepareTextStyles(@options.inheritFontStyles, @baseTextStyle, @textStyles)
 
-        unless textStyle.isEmpty
-          comment(css.textSnippet(@text, textStyle))
+        comment(css.textSnippet(@text, textStyle))
 
-          if @options.selector
-            if textStyle.ranges
-              selectorText = utils.textFromRange(@text, textStyle.ranges[0])
-            else
-              selectorText = @name
+        if @options.selector
+          if textStyle.ranges
+            selectorText = utils.textFromRange(@text, textStyle.ranges[0])
+          else
+            selectorText = @name
 
-            startSelector(selectorText)
+          startSelector(selectorText)
 
-        if not @options.inheritFontStyles or textStyle.base and not textStyle.isEmpty
+        if not @options.inheritFontStyles or textStyle.base
           if @options.showAbsolutePositions
             declaration('position', 'absolute')
             declaration('left', @bounds.left, unit)
@@ -97,7 +96,7 @@ class CSS
 
         fontStyles(textStyle)
 
-        endSelector() unless textStyle.isEmpty
+        endSelector()
         $.newline()
     else
       comment("Style for \"#{utils.trim(@name)}\"")
