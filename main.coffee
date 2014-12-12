@@ -8,7 +8,7 @@ autoprefixer = require('autoprefixer-core')
 # Private fns
 
 _declaration = ($, vendorPrefixes, prefixer, property, value, modifier) ->
-  return unless value?
+  return unless value
   value = modifier(value) if modifier
   return prefixer(property, value) if vendorPrefixes
   $ "#{property}: #{value};"
@@ -37,15 +37,22 @@ _endSelector = ($, selector) ->
   $ '}'
 
 
-_prefixed = ($, prefixOptions, property, value) ->
-  output = "#{property}: #{value}"
+autoprefixedOpt = null
+
+_initAutoprefixer = (prefixOptions = {}) ->
   try
-    prefixed = autoprefixer(prefixOptions).process(output)
-    children = prefixed.root.childs
-    $ "#{child.prop}: #{child.value};" for child in children
+    autoprefixedOpt = autoprefixer(prefixOptions)
   catch e
-    # Show error
-    console.log 'Parse error'
+    'Parse error – try to check the syntax'
+
+
+_prefixed = ($, prefixOptions, property, value) ->
+  _initAutoprefixer() unless autoprefixedOpt
+
+  output = "#{property}: #{value}"
+  prefixed = autoprefixedOpt.process(output)
+  children = prefixed.root.childs
+  $ "#{child.prop}: #{child.value};" for child in children
 
 
 class CSS
@@ -109,7 +116,7 @@ class CSS
 
       if @bounds
         declaration('width', unit(@bounds.width))
-        declaration('height', unit(@bounds.width))
+        declaration('height', unit(@bounds.height))
 
       declaration('opacity', @opacity)
 
