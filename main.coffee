@@ -94,7 +94,7 @@ class CSS
 
           if @bounds
             declaration('width', unit(@bounds.width))
-            declaration('height', unit(@bounds.width))
+            declaration('height', unit(@bounds.height))
 
           declaration('opacity', @opacity)
 
