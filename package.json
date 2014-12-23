@@ -41,7 +41,7 @@
       "type": "boolean",
       "default": false
     },
-    "addExplainingCommentsToCSS": {
+    "addExplainingCommentsToCode": {
       "type": "boolean",
       "default": true
     },
