@@ -70,6 +70,7 @@ class CSS
       separator: @options.selectorTextStyle
       selector: @options.selectorType
       maxWords: 3
+      fallbackSelectorPrefix: 'layer'
     startSelector = _.partial(_startSelector, $, @options.selector, selectorOptions)
     endSelector = _.partial(_endSelector, $, @options.selector)
 
