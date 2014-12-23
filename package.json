@@ -41,8 +41,24 @@
       "type": "boolean",
       "default": false
     },
+    "addExplainingCommentsToCSS": {
+      "type": "boolean",
+      "default": true
+    },
+    "showAbsolutePositions": {
+      "type": "boolean",
+      "default": false
+    },
+    "quoteType": {
+      "type": "select",
+      "options": [
+        "'",
+        "\""
+      ],
+      "default": "\""
+    },
     "selectorTextStyle": {
-      "type": "hidden",
+      "type": "select",
       "options": [
         "dash-case",
         "snake_case",
@@ -68,14 +84,6 @@
       ],
       "default": "hex"
     },
-    "showTextSnippet": {
-      "type": "boolean",
-      "default": true
-    },
-    "showAbsolutePositions": {
-      "type": "boolean",
-      "default": false
-    },
     "unit": {
       "type": "hidden",
       "options": [
@@ -88,14 +96,6 @@
     "useColorName": {
       "type": "boolean",
       "default": true
-    },
-    "quoteType": {
-      "type": "select",
-      "options": [
-        "'",
-        "\""
-      ],
-      "default": "\""
     }
   },
   "bundledDependencies": [

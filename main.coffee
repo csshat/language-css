@@ -14,8 +14,8 @@ _declaration = ($, vendorPrefixes, prefixer, property, value, modifier) ->
   $ "#{property}: #{value};"
 
 
-_comment = ($, showTextSnippet, text) ->
-  return unless showTextSnippet
+_comment = ($, addExplainingCommentsToCSS, text) ->
+  return unless addExplainingCommentsToCSS
   $ "/* #{text} */"
 
 
@@ -61,7 +61,7 @@ class CSS
     $$ = $.indents
     prefixed = _.partial(_prefixed, $$, {})
     declaration = _.partial(_declaration, $$, @options.vendorPrefixes, prefixed)
-    comment = _.partial(_comment, $, @options.showTextSnippet)
+    comment = _.partial(_comment, $, @options.addExplainingCommentsToCSS)
     unit = _.partial(css.unit, @options.unit)
     convertColor = _.partial(css.convertColor, null, @options)
     fontStyles = _.partial(css.fontStyles, declaration, convertColor, unit, @options.quoteType)
