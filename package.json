@@ -29,19 +29,11 @@
     "octopus-helpers": "^1.0.0"
   },
   "settings": {
-    "vendorPrefixes": {
-      "type": "boolean",
-      "default": true
-    },
     "inheritFontStyles": {
       "type": "boolean",
       "default": true
     },
-    "selector": {
-      "type": "boolean",
-      "default": false
-    },
-    "addExplainingCommentsToCode": {
+    "showComments": {
       "type": "boolean",
       "default": true
     },
@@ -49,22 +41,22 @@
       "type": "boolean",
       "default": false
     },
-    "quoteType": {
-      "type": "select",
-      "options": [
-        "'",
-        "\""
-      ],
-      "default": "\""
+    "useColorName": {
+      "type": "boolean",
+      "default": true
     },
-    "selectorTextStyle": {
-      "type": "select",
-      "options": [
-        "dash-case",
-        "snake_case",
-        "camelCase"
-      ],
-      "default": "dash-case"
+    "vendorPrefixes": {
+      "type": "boolean",
+      "default": true
+    },
+    "autoprefixer": {
+      "type": "text",
+      "validate": "setAutoprefixer",
+      "default": "> 1%, last 2 versions, Firefox ESR, Opera 12.1"
+    },
+    "selector": {
+      "type": "boolean",
+      "default": false
     },
     "selectorType": {
       "type": "select",
@@ -75,6 +67,15 @@
       ],
       "default": "class"
     },
+    "selectorTextStyle": {
+      "type": "select",
+      "options": [
+        "dash-case",
+        "snake_case",
+        "camelCase"
+      ],
+      "default": "dash-case"
+    },
     "colorType": {
       "type": "select",
       "options": [
@@ -84,6 +85,14 @@
       ],
       "default": "hex"
     },
+    "quoteType": {
+      "type": "select",
+      "options": [
+        "'",
+        "\""
+      ],
+      "default": "\""
+    },
     "unit": {
       "type": "hidden",
       "options": [
@@ -92,10 +101,6 @@
         "rem"
       ],
       "default": "px"
-    },
-    "useColorName": {
-      "type": "boolean",
-      "default": true
     }
   },
   "bundledDependencies": [

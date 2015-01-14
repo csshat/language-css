@@ -8,14 +8,14 @@ autoprefixer = require('autoprefixer-core')
 # Private fns
 
 _declaration = ($, vendorPrefixes, prefixer, property, value, modifier) ->
-  return unless value
+  return if not value? or value == ''
   value = modifier(value) if modifier
   return prefixer(property, value) if vendorPrefixes
   $ "#{property}: #{value};"
 
 
-_comment = ($, addExplainingCommentsToCSS, text) ->
-  return unless addExplainingCommentsToCSS
+_comment = ($, showComments, text) ->
+  return unless showComments
   $ "/* #{text} */"
 
 
@@ -37,20 +37,22 @@ _endSelector = ($, selector) ->
   $ '}'
 
 
-autoprefixedOpt = null
+prefixer = null
+setAutoprefixer = (prefixOptions = '> 1%, last 2 versions, Firefox ESR, Opera 12.1') ->
+  options = prefixOptions.split(',').map (val) -> val.trim()
 
-_initAutoprefixer = (prefixOptions = {}) ->
   try
-    autoprefixedOpt = autoprefixer(prefixOptions)
+    prefixer = autoprefixer({browsers: options})
   catch e
     'Parse error – try to check the syntax'
 
 
-_prefixed = ($, prefixOptions, property, value) ->
-  _initAutoprefixer() unless autoprefixedOpt
+_prefixed = ($, property, value) ->
+  setAutoprefixer() unless prefixer
 
   output = "#{property}: #{value}"
-  prefixed = autoprefixedOpt.process(output)
+  prefixed = prefixer.process(output)
+
   children = prefixed.root.childs
   $ "#{child.prop}: #{child.value};" for child in children
 
@@ -59,9 +61,9 @@ class CSS
 
   render: ($) ->
     $$ = $.indents
-    prefixed = _.partial(_prefixed, $$, {})
+    prefixed = _.partial(_prefixed, $$)
     declaration = _.partial(_declaration, $$, @options.vendorPrefixes, prefixed)
-    comment = _.partial(_comment, $, @options.addExplainingCommentsToCSS)
+    comment = _.partial(_comment, $, @options.showComments)
     unit = _.partial(css.unit, @options.unit)
     convertColor = _.partial(css.convertColor, null, @options)
     fontStyles = _.partial(css.fontStyles, declaration, convertColor, unit, @options.quoteType)
@@ -139,4 +141,4 @@ class CSS
       endSelector()
 
 
-module.exports = {defineVariable, renderVariable, renderClass: CSS}
+module.exports = {defineVariable, renderVariable, setAutoprefixer, renderClass: CSS}
