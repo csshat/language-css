@@ -26,6 +26,13 @@ defineVariable = (name, value, options) ->
 
 renderVariable = (name) -> name
 
+renderColor = (color, colorVariable, colorType) ->
+  if color.a < 1
+    css.colorFormat(color, colorType)
+  else
+    colorVariable
+
+_convertColor = _.partial(css.convertColor, renderColor)
 
 _startSelector = ($, selector, selectorOptions, text) ->
   return unless selector
@@ -65,7 +72,7 @@ class CSS
     declaration = _.partial(_declaration, $$, @options.vendorPrefixes, prefixed)
     comment = _.partial(_comment, $, @options.showComments)
     unit = _.partial(css.unit, @options.unit)
-    convertColor = _.partial(css.convertColor, null, @options)
+    convertColor = _.partial(_convertColor, @options)
     fontStyles = _.partial(css.fontStyles, declaration, convertColor, unit, @options.quoteType)
 
     selectorOptions =
