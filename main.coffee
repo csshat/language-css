@@ -31,7 +31,7 @@ renderColor = (color, colorVariable, colorType) ->
   if color.a < 1
     css.colorFormat(color, colorType)
   else
-    colorVariable
+    renderVariable(colorVariable)
 
 _convertColor = _.partial(css.convertColor, renderColor)
 
