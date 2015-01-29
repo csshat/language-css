@@ -24,7 +24,8 @@ defineVariable = (name, value, options) ->
   "--#{name}: #{value};"
 
 
-renderVariable = (name) -> name
+renderVariable = (name) ->
+  "var(--#{name})"
 
 renderColor = (color, colorVariable, colorType) ->
   if color.a < 1
