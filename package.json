@@ -21,7 +21,8 @@
   "author": "Tomas Hanacek <tomashanacek@abdoc.net> (https://github.com/tomashanacek)",
   "contributors": [
     "Marek Hrabe <marekhrabe@abdoc.net> (https://github.com/marekhrabe)",
-    "Petr Brzek <petrbrzek@abdoc.net> (https://github.com/petrbrzek)"
+    "Petr Brzek <petrbrzek@abdoc.net> (https://github.com/petrbrzek)",
+    "Patrik Holcak <patrikholcak@abdoc.net> (https://github.com/patrikholcak)"
   ],
   "license": "MIT",
   "dependencies": {
@@ -30,31 +31,38 @@
   },
   "settings": {
     "inheritFontStyles": {
+      "description": "Group common styles for selected layers.",
       "type": "boolean",
       "default": true
     },
     "showComments": {
+      "description": "Show a brief description of text layers.",
       "type": "boolean",
       "default": true
     },
     "showAbsolutePositions": {
+      "description": "Show absolute X and Y coordinates for all layers.",
       "type": "boolean",
       "default": false
     },
     "useColorName": {
+      "description": "Show color name values of common colors rather than hex codes.",
       "type": "boolean",
       "default": true
     },
     "vendorPrefixes": {
+      "description": "Generate vendor prefixes like `display: -webkit-flex;`",
       "type": "boolean",
       "default": true
     },
     "autoprefixer": {
+      "description": "Defines which vendor prefixes will be generated. Read more on [Github](https://github.com/postcss/autoprefixer).",
       "type": "text",
       "validate": "setAutoprefixer",
       "default": "> 1%, last 2 versions, Firefox ESR, Opera 12.1"
     },
     "selector": {
+      "description": "Wrap code in a css selector.",
       "type": "boolean",
       "default": false
     },
