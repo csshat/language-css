@@ -36,7 +36,7 @@
       "default": true
     },
     "showComments": {
-      "description": "Show a brief description of text layers.",
+      "description": "Show a brief description of selected layers.",
       "type": "boolean",
       "default": true
     },
