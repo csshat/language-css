@@ -54,6 +54,13 @@ setAutoprefixer = (prefixOptions = '> 1%, last 2 versions, Firefox ESR, Opera 12
   catch e
     'Parse error – try to check the syntax'
 
+setNumberValue = (number) ->
+  converted = parseInt(number, 10)
+  if not number.match(/^\d+(\.\d+)?$/)
+    return 'Please enter numeric value'
+  else
+    return converted
+
 
 _prefixed = ($, property, value) ->
   setAutoprefixer() unless prefixer
@@ -72,7 +79,13 @@ class CSS
     prefixed = _.partial(_prefixed, $$)
     declaration = _.partial(_declaration, $$, @options.vendorPrefixes, prefixed)
     comment = _.partial(_comment, $, @options.showComments)
-    unit = _.partial(css.unit, @options.unit)
+
+    rootValue = switch @options.unit
+      when 'px' then 0
+      when 'em' then @options.emValue
+      when 'rem' then @options.remValue
+    unit = _.partial(css.unit, @options.unit, rootValue)
+
     convertColor = _.partial(_convertColor, @options)
     fontStyles = _.partial(css.fontStyles, declaration, convertColor, unit, @options.quoteType)
 
@@ -149,4 +162,4 @@ class CSS
       endSelector()
 
 
-module.exports = {defineVariable, renderVariable, setAutoprefixer, renderClass: CSS}
+module.exports = {defineVariable, renderVariable, setAutoprefixer, setNumberValue, renderClass: CSS}
