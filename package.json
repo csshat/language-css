@@ -1,10 +1,11 @@
 {
   "name": "csshat-language-css",
   "title": "CSS",
-  "version": "1.2.4",
+  "version": "2.1.1",
   "description": "CSS language",
-  "main": "dust.js",
+  "main": "main",
   "scope": "source.css",
+  "codeLanguage": true,
   "engines": {
     "csshat": "~2.0.0",
     "avocode": "*"
@@ -20,33 +21,75 @@
   "author": "Tomas Hanacek <tomashanacek@abdoc.net> (https://github.com/tomashanacek)",
   "contributors": [
     "Marek Hrabe <marekhrabe@abdoc.net> (https://github.com/marekhrabe)",
-    "Petr Brzek <petrbrzek@abdoc.net> (https://github.com/petrbrzek)"
+    "Petr Brzek <petrbrzek@abdoc.net> (https://github.com/petrbrzek)",
+    "Patrik Holcak <patrikholcak@abdoc.net> (https://github.com/patrikholcak)"
   ],
   "license": "MIT",
   "dependencies": {
-    "octopus-helpers": "^0.2.9"
+    "autoprefixer-core": "^4.0.2",
+    "octopus-helpers": "^1.5.0"
   },
   "settings": {
-    "vendorPrefixes": {
-      "type": "boolean",
-      "default": true
-    },
     "inheritFontStyles": {
+      "description": "Group common styles for selected layers.",
       "type": "boolean",
       "default": true
     },
-    "selector": {
+    "showComments": {
+      "description": "Show a brief description of selected layers.",
+      "type": "boolean",
+      "default": true
+    },
+    "showAbsolutePositions": {
+      "description": "Show absolute X and Y coordinates for all layers.",
       "type": "boolean",
       "default": false
     },
-    "selectorTextStyle": {
-      "type": "hidden",
+    "useColorName": {
+      "description": "Show color name values of common colors rather than hex codes.",
+      "type": "boolean",
+      "default": true
+    },
+    "vendorPrefixes": {
+      "description": "Generate vendor prefixes like `display: -webkit-flex;`",
+      "type": "boolean",
+      "default": true
+    },
+    "unit": {
+      "type": "select",
       "options": [
-        "dash-case",
-        "camelCase",
-        "snake_case"
+        "px",
+        "em",
+        "rem"
       ],
-      "default": "dash-case"
+      "default": "px"
+    },
+    "emValue": {
+      "description": "1 em = x px — Ammount of pixels that correspond to one em. Em value is **not** relative to parent element.",
+      "type": "text",
+      "default": 16,
+      "validate": "setNumberValue",
+      "showFor": "unit",
+      "showWhen": "em"
+    },
+    "remValue": {
+      "description": "1 rem = x px — Ammount of pixels that correspond to one rem",
+      "type": "text",
+      "default": 16,
+      "validate": "setNumberValue",
+      "showFor": "unit",
+      "showWhen": "rem"
+    },
+    "autoprefixer": {
+      "description": "Defines which vendor prefixes will be generated. Read more on [Github](https://github.com/postcss/autoprefixer).",
+      "type": "text",
+      "validate": "setAutoprefixer",
+      "default": "> 1%, last 2 versions, Firefox ESR, Opera 12.1"
+    },
+    "selector": {
+      "description": "Wrap code in a css selector.",
+      "type": "boolean",
+      "default": false
     },
     "selectorType": {
       "type": "select",
@@ -57,6 +100,15 @@
       ],
       "default": "class"
     },
+    "selectorTextStyle": {
+      "type": "select",
+      "options": [
+        "dash-case",
+        "snake_case",
+        "camelCase"
+      ],
+      "default": "dash-case"
+    },
     "colorType": {
       "type": "select",
       "options": [
@@ -66,9 +118,13 @@
       ],
       "default": "hex"
     },
-    "showTextSnippet": {
-      "type": "boolean",
-      "default": true
+    "quoteType": {
+      "type": "select",
+      "options": [
+        "'",
+        "\""
+      ],
+      "default": "\""
     }
   },
   "bundledDependencies": [
