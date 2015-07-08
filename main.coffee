@@ -154,7 +154,7 @@ class CSS
         border = @borders[0]
         declaration('border', "#{unit(border.width)} #{border.style} #{convertColor(border.color)}")
 
-      declaration('border-radius', @radius, css.radius)
+      declaration('border-radius', @radius, _.partial(css.radius, unit))
 
       if @shadows
         declaration('box-shadow', css.convertShadows(convertColor, unit, @shadows))
