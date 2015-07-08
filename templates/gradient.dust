@@ -1,5 +1,0 @@
-background-image: {#gradient}{prefix}{type}-gradient({@if cond="'{prefix}'.length > 0"}{angle|gradientAngle}{:else}{angle|css3GradientAngle}{/if}
-{#stops}
-    , {@color type=options.colorType}{color}{/color} {location}%
-{/stops}
-){@sep}, {/sep}{/gradient};{~n}
