@@ -64,12 +64,26 @@
       ],
       "default": "px"
     },
+    "lineHeightUnit": {
+      "type": "select",
+      "options": [
+        "Use global unit",
+        "Unitless (divided by font size)",
+        "px",
+        "em",
+        "rem"
+      ],
+      "default": "Use global unit"
+    },
     "emValue": {
       "description": "1 em = x px — Ammount of pixels that correspond to one em. Em value is **not** relative to parent element.",
       "type": "text",
       "default": 16,
       "validate": "setNumberValue",
-      "showFor": "unit",
+      "showFor": [
+        "unit",
+        "lineHeightUnit"
+      ],
       "showWhen": "em"
     },
     "remValue": {
@@ -77,7 +91,10 @@
       "type": "text",
       "default": 16,
       "validate": "setNumberValue",
-      "showFor": "unit",
+      "showFor": [
+        "unit",
+        "lineHeightUnit"
+      ],
       "showWhen": "rem"
     },
     "autoprefixer": {

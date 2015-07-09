@@ -86,8 +86,15 @@ class CSS
       when 'rem' then @options.remValue
     unit = _.partial(css.unit, @options.unit, rootValue)
 
+    lhRoot = switch @options.lineHeightUnit
+      when 'px' then 0
+      when 'em' then @options.emValue
+      when 'rem' then @options.remValue
+    lineHeightUnit = _.partial(css.lineHeightUnit, @options.lineHeightUnit, unit, lhRoot)
+    isUnitlessLh = @options.lineHeightUnit.toLowerCase().indexOf('unitless') isnt -1
+
     convertColor = _.partial(_convertColor, @options)
-    fontStyles = _.partial(css.fontStyles, declaration, convertColor, unit, @options.quoteType)
+    fontStyles = _.partial(css.fontStyles, declaration, convertColor, unit, lineHeightUnit, isUnitlessLh, @options.quoteType)
 
     selectorOptions =
       separator: @options.selectorTextStyle
