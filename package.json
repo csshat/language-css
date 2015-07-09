@@ -27,7 +27,7 @@
   "license": "MIT",
   "dependencies": {
     "autoprefixer-core": "^4.0.2",
-    "octopus-helpers": "^1.5.0"
+    "octopus-helpers": "1.5.0"
   },
   "settings": {
     "inheritFontStyles": {
