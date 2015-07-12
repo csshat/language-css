@@ -55,6 +55,14 @@
       "type": "boolean",
       "default": true
     },
+    "boxSizing": {
+      "type": "select",
+      "options": [
+        "border-box",
+        "content-box"
+      ],
+      "default": "border-box"
+    },
     "unit": {
       "type": "select",
       "options": [

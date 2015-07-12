@@ -79,6 +79,7 @@ class CSS
     prefixed = _.partial(_prefixed, $$)
     declaration = _.partial(_declaration, $$, @options.vendorPrefixes, prefixed)
     comment = _.partial(_comment, $, @options.showComments)
+    boxModelDimension = _.partial(css.boxModelDimension, @options.boxSizing, if @borders then @borders[0].width else null)
 
     rootValue = switch @options.unit
       when 'px' then 0
@@ -146,8 +147,11 @@ class CSS
         declaration('top', @bounds.top, unit)
 
       if @bounds
-        declaration('width', unit(@bounds.width))
-        declaration('height', unit(@bounds.height))
+        width = boxModelDimension(@bounds.width)
+        height = boxModelDimension(@bounds.height)
+
+        declaration('width', unit(width))
+        declaration('height', unit(height))
 
       declaration('opacity', @opacity)
 
