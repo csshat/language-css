@@ -75,13 +75,13 @@
     "lineHeightUnit": {
       "type": "select",
       "options": [
-        "Use global unit",
-        "Unitless (divided by font size)",
+        "Use selected unit",
+        "Unitless (number multiplied by the element's font size)",
         "px",
         "em",
         "rem"
       ],
-      "default": "Use global unit"
+      "default": "Use selected unit"
     },
     "emValue": {
       "description": "1 em = x px — Ammount of pixels that correspond to one em. Em value is **not** relative to parent element.",
