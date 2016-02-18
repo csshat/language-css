@@ -172,5 +172,6 @@ class CSS
 
       endSelector()
 
+metadata = require './package.json'
 
-module.exports = {defineVariable, renderVariable, setAutoprefixer, setNumberValue, renderClass: CSS}
+module.exports = {defineVariable, renderVariable, setAutoprefixer, setNumberValue, renderClass: CSS, metadata}
