@@ -154,5 +154,11 @@
   },
   "bundledDependencies": [
     "octopus-helpers"
-  ]
+  ],
+  "devDependencies": {
+    "coffee-script": "^1.10.0"
+  },
+  "scripts": {
+    "prepublish": "coffee -o ./ ./"
+  }
 }
