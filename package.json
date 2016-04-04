@@ -3,10 +3,6 @@
   "version": "2.1.6",
   "description": "CSS language",
   "main": "main",
-  "engines": {
-    "csshat": "~2.0.0",
-    "avocode": "*"
-  },
   "homepage": "https://github.com/csshat/language-css",
   "repository": {
     "type": "git",
