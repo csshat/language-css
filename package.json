@@ -1,11 +1,8 @@
 {
   "name": "csshat-language-css",
-  "title": "CSS",
   "version": "2.1.6",
   "description": "CSS language",
   "main": "main",
-  "scope": "source.css",
-  "codeLanguage": true,
   "engines": {
     "csshat": "~2.0.0",
     "avocode": "*"
@@ -28,129 +25,6 @@
   "dependencies": {
     "autoprefixer-core": "^4.0.2",
     "octopus-helpers": "^1.5.0"
-  },
-  "settings": {
-    "inheritFontStyles": {
-      "description": "Group common styles for selected layers.",
-      "type": "boolean",
-      "default": true
-    },
-    "showComments": {
-      "description": "Show a brief description of selected layers.",
-      "type": "boolean",
-      "default": true
-    },
-    "showAbsolutePositions": {
-      "description": "Show absolute X and Y coordinates for all layers.",
-      "type": "boolean",
-      "default": false
-    },
-    "useColorName": {
-      "description": "Show color name values of common colors rather than hex codes.",
-      "type": "boolean",
-      "default": true
-    },
-    "vendorPrefixes": {
-      "description": "Generate vendor prefixes like `display: -webkit-flex;`",
-      "type": "boolean",
-      "default": true
-    },
-    "boxSizing": {
-      "type": "select",
-      "options": [
-        "border-box",
-        "content-box"
-      ],
-      "default": "border-box"
-    },
-    "unit": {
-      "type": "select",
-      "options": [
-        "px",
-        "em",
-        "rem"
-      ],
-      "default": "px"
-    },
-    "lineHeightUnit": {
-      "type": "select",
-      "options": [
-        "Use selected unit",
-        "Unitless (number multiplied by the element's font size)",
-        "px",
-        "em",
-        "rem"
-      ],
-      "default": "Use selected unit"
-    },
-    "emValue": {
-      "description": "1 em = x px — Ammount of pixels that correspond to one em. Em value is **not** relative to parent element.",
-      "type": "text",
-      "default": 16,
-      "validate": "setNumberValue",
-      "showFor": [
-        "unit",
-        "lineHeightUnit"
-      ],
-      "showWhen": "em"
-    },
-    "remValue": {
-      "description": "1 rem = x px — Ammount of pixels that correspond to one rem",
-      "type": "text",
-      "default": 16,
-      "validate": "setNumberValue",
-      "showFor": [
-        "unit",
-        "lineHeightUnit"
-      ],
-      "showWhen": "rem"
-    },
-    "autoprefixer": {
-      "description": "Defines which vendor prefixes will be generated. Read more on [Github](https://github.com/postcss/autoprefixer).",
-      "type": "text",
-      "validate": "setAutoprefixer",
-      "default": "> 1%, last 2 versions, Firefox ESR, Opera 12.1"
-    },
-    "selector": {
-      "description": "Wrap code in a css selector.",
-      "type": "boolean",
-      "default": false
-    },
-    "selectorType": {
-      "type": "select",
-      "options": [
-        "id",
-        "class",
-        "element"
-      ],
-      "default": "class"
-    },
-    "selectorTextStyle": {
-      "type": "select",
-      "options": [
-        "dash-case",
-        "snake_case",
-        "camelCase"
-      ],
-      "default": "dash-case"
-    },
-    "colorType": {
-      "type": "select",
-      "options": [
-        "hex",
-        "rgb",
-        "hsl"
-      ],
-      "default": "hex"
-    },
-    "quoteType": {
-      "type": "select",
-      "options": [
-        "'",
-        "\""
-      ],
-      "default": "\""
-    }
   },
   "devDependencies": {
     "coffee-script": "^1.10.0"
