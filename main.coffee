@@ -72,6 +72,17 @@ _prefixed = ($, property, value) ->
   $ "#{child.prop}: #{child.value};" for child in children
 
 
+declareAbsolutePosition = (declaration, bounds, unit) ->
+  declaration('position', 'absolute')
+  declaration('left', bounds.left, unit)
+  declaration('top', bounds.top, unit)
+
+
+declareDimensions = (declaration, bounds, unit) ->
+  declaration('width', unit(bounds.width))
+  declaration('height', unit(bounds.height))
+
+
 class CSS
 
   render: ($) ->
@@ -106,52 +117,58 @@ class CSS
     endSelector = _.partial(_endSelector, $, @options.selector)
 
     if @type == 'textLayer'
-      for textStyle in css.prepareTextStyles(@options.inheritFontStyles, @baseTextStyle, @textStyles)
+      if @baseTextStyle and @textStyles
+        for textStyle in css.prepareTextStyles(@options.inheritFontStyles, @baseTextStyle, @textStyles)
 
-        comment(css.textSnippet(@text, textStyle))
+          comment(css.textSnippet(@text, textStyle))
 
-        if @options.selector
-          if textStyle.ranges
-            selectorText = utils.textFromRange(@text, textStyle.ranges[0])
-          else
-            selectorText = @name
+          if @options.selector
+            if textStyle.ranges
+              selectorText = utils.textFromRange(@text, textStyle.ranges[0])
+            else
+              selectorText = @name
 
-          startSelector(selectorText)
+            startSelector(selectorText)
 
-        if not @options.inheritFontStyles or textStyle.base
-          if @options.showAbsolutePositions
-            declaration('position', 'absolute')
-            declaration('left', @bounds.left, unit)
-            declaration('top', @bounds.top, unit)
+          if not @options.inheritFontStyles or textStyle.base
+            if @options.showAbsolutePositions
+              declareAbsolutePosition(declaration, @bounds, unit)
 
-          if @bounds
-            declaration('width', unit(@bounds.width))
-            declaration('height', unit(@bounds.height))
+            if @bounds
+              declareDimensions(declaration, @bounds, unit)
 
-          declaration('opacity', @opacity)
+            declaration('opacity', @opacity)
 
-          if @shadows
-            declaration('text-shadow', css.convertTextShadows(convertColor, unit, @shadows))
+            if @shadows
+              declaration('text-shadow', css.convertTextShadows(convertColor, unit, @shadows))
 
-        fontStyles(textStyle)
+          fontStyles(textStyle)
+
+          endSelector()
+      else
+        startSelector(@name)
+        comment('Text dimensions')
+        if @options.showAbsolutePositions
+            declareAbsolutePosition(declaration, @bounds, unit)
+
+        if @bounds
+          declareDimensions(declaration, @bounds, unit)
 
         endSelector()
-        $.newline()
+
+      $.newline()
     else
       comment("Style for \"#{utils.trim(@name)}\"")
       startSelector(@name)
 
       if @options.showAbsolutePositions
-        declaration('position', 'absolute')
-        declaration('left', @bounds.left, unit)
-        declaration('top', @bounds.top, unit)
+        declareAbsolutePosition(declaration, @bounds, unit)
 
       if @bounds
         width = boxModelDimension(@bounds.width)
         height = boxModelDimension(@bounds.height)
 
-        declaration('width', unit(width))
-        declaration('height', unit(height))
+        declareDimensions(declaration, { width, height }, unit)
 
       declaration('opacity', @opacity)
 
