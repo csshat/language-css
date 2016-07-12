@@ -26,7 +26,6 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "autoprefixer-core": "^4.0.2",
     "octopus-helpers": "^1.5.0"
   },
   "settings": {
@@ -47,11 +46,6 @@
     },
     "useColorName": {
       "description": "Show color name values of common colors rather than hex codes.",
-      "type": "boolean",
-      "default": true
-    },
-    "vendorPrefixes": {
-      "description": "Generate vendor prefixes like `display: -webkit-flex;`",
       "type": "boolean",
       "default": true
     },
@@ -104,12 +98,6 @@
         "lineHeightUnit"
       ],
       "showWhen": "rem"
-    },
-    "autoprefixer": {
-      "description": "Defines which vendor prefixes will be generated. Read more on [Github](https://github.com/postcss/autoprefixer).",
-      "type": "text",
-      "validate": "setAutoprefixer",
-      "default": "> 1%, last 2 versions, Firefox ESR, Opera 12.1"
     },
     "selector": {
       "description": "Wrap code in a css selector.",
