@@ -1,16 +1,14 @@
 # Deps
 
-autoprefixer = require('autoprefixer-core')
 {css, utils} = require 'octopus-helpers'
 {_} = utils
 
 
 # Private fns
 
-_declaration = ($, vendorPrefixes, prefixer, property, value, modifier) ->
+_declaration = ($, property, value, modifier) ->
   return if not value? or value == ''
   value = modifier(value) if modifier
-  return prefixer(property, value) if vendorPrefixes
   $ "#{property}: #{value};"
 
 
@@ -45,31 +43,12 @@ _endSelector = ($, selector) ->
   $ '}'
 
 
-prefixer = null
-setAutoprefixer = (prefixOptions = '> 1%, last 2 versions, Firefox ESR, Opera 12.1') ->
-  options = prefixOptions.split(',').map (val) -> val.trim()
-
-  try
-    prefixer = autoprefixer({browsers: options})
-  catch e
-    'Parse error – try to check the syntax'
-
 setNumberValue = (number) ->
   converted = parseInt(number, 10)
   if not number.match(/^\d+(\.\d+)?$/)
     return 'Please enter numeric value'
   else
     return converted
-
-
-_prefixed = ($, property, value) ->
-  setAutoprefixer() unless prefixer
-
-  output = "#{property}: #{value}"
-  prefixed = prefixer.process(output)
-
-  children = prefixed.root.childs
-  $ "#{child.prop}: #{child.value};" for child in children
 
 
 declareAbsolutePosition = (declaration, bounds, unit) ->
@@ -87,8 +66,7 @@ class CSS
 
   render: ($) ->
     $$ = $.indents
-    prefixed = _.partial(_prefixed, $$)
-    declaration = _.partial(_declaration, $$, @options.vendorPrefixes, prefixed)
+    declaration = _.partial(_declaration, $$)
     comment = _.partial(_comment, $, @options.showComments)
     boxModelDimension = _.partial(css.boxModelDimension, @options.boxSizing, if @borders then @borders[0].width else null)
 
@@ -149,7 +127,7 @@ class CSS
         startSelector(@name)
         comment('Text dimensions')
         if @options.showAbsolutePositions
-            declareAbsolutePosition(declaration, @bounds, unit)
+          declareAbsolutePosition(declaration, @bounds, unit)
 
         if @bounds
           declareDimensions(declaration, @bounds, unit)
@@ -191,4 +169,4 @@ class CSS
 
 metadata = require './package.json'
 
-module.exports = {defineVariable, renderVariable, setAutoprefixer, setNumberValue, renderClass: CSS, metadata}
+module.exports = {defineVariable, renderVariable, setNumberValue, renderClass: CSS, metadata}
